@@ -49,29 +49,6 @@ docker-compose -f docker-compose-rpc.yaml up -d
 - **Persistent Storage**: Node data is stored in `~/.avalanchego` on the host
 - **Auto-restart**: Container automatically restarts unless manually stopped
 
-## API Usage
-
-Once the node is running, you can interact with it using standard Avalanche RPC calls:
-
-```bash
-# Check if the node is healthy
-curl -X POST --data '{
-    "jsonrpc":"2.0",
-    "id"     :1,
-    "method" :"info.isBootstrapped",
-    "params": {
-        "chain":"X"
-    }
-}' -H 'content-type:application/json;' http://localhost:9650/ext/info
-
-# Get network information
-curl -X POST --data '{
-    "jsonrpc":"2.0",
-    "id"     :1,
-    "method" :"info.getNetworkID"
-}' -H 'content-type:application/json;' http://localhost:9650/ext/info
-```
-
 ## Monitoring
 
 Check the container logs to monitor the node's synchronization progress:
