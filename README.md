@@ -49,6 +49,49 @@ docker-compose -f docker-compose-rpc.yaml up -d
 - **Persistent Storage**: Node data is stored in `~/.avalanchego` on the host
 - **Auto-restart**: Container automatically restarts unless manually stopped
 
+## API Usage
+
+Once the node is running, you can interact with it using standard Avalanche RPC calls:
+
+```bash
+# Check if the node is healthy
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"info.isBootstrapped",
+    "params": {
+        "chain":"X"
+    }
+}' -H 'content-type:application/json;' http://localhost:9650/ext/info
+
+# Get network information
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"info.getNetworkID"
+}' -H 'content-type:application/json;' http://localhost:9650/ext/info
+```
+
+## Validator Setup and L1 Conversion
+
+### Step 1: Bootstrap the Validator
+
+After your node is running and synchronized, you need to bootstrap your validator to join the Neura subnet network.
+
+### Step 2: Convert Subnet to L1
+
+Once your validator is bootstrapped and ready, you must use the official Avalanche L1 toolbox to convert your subnet to an L1:
+
+**🔧 [Avalanche L1 Toolbox - Convert to L1](https://build.avax.network/tools/l1-toolbox#convertToL1)**
+
+This tool is essential for:
+
+- Converting your subnet configuration to L1 format
+- Generating the necessary L1 genesis and configuration files
+- Ensuring proper L1 network setup and validation
+
+> **Important**: This conversion step is mandatory after validator bootstrapping and before the L1 can be fully operational.
+
 ## Monitoring
 
 Check the container logs to monitor the node's synchronization progress:
